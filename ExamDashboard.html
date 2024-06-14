@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School ERP Exam Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .card,
+        .chart-container,
+        .table-container,
+        .widget {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover,
+        .chart-container:hover,
+        .table-container:hover,
+        .widget:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header,
+        .table th {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            padding: 15px;
+            font-size: 1.25rem;
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 10px;
+            color: white;
+        }
+
+        .icon-bg-primary {
+            background-color: #007bff;
+        }
+
+        .icon-bg-success {
+            background-color: #28a745;
+        }
+
+        .icon-bg-warning {
+            background-color: #ffc107;
+        }
+
+        .icon-bg-danger {
+            background-color: #dc3545;
+        }
+
+        .custom-card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .custom-card-text {
+            font-size: 1.5rem;
+        }
+
+        .parallax {
+            background-image: url('https://source.unsplash.com/random/1920x1080');
+            min-height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .parallax h1 {
+            padding-top: 150px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        .parallax .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+        }
+
+        .parallax::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .widget {
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .widget::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: transform 0.3s;
+            transform: translateX(-200px) translateY(-200px);
+        }
+
+        .widget:hover::before {
+            transform: translateX(50px) translateY(50px);
+        }
+
+        .widget:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .widget-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .widget-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .widget-content {
+            font-size: 1.25rem;
+        }
+
+        .widget-bg-primary {
+            color: #007bff;
+        }
+
+        .widget-bg-success {
+            color: #28a745;
+        }
+
+        .widget-bg-warning {
+            color: #ffc107;
+        }
+
+        .widget-bg-danger {
+            color: #dc3545;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(145deg, #007bff, #0056b3);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 20px 20px 60px #0056b3, -20px -20px 60px #007bff;
+        }
+
+        .stack-books {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: rotate(-10deg);
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parallax">
+        <div class="parallax-content">
+            <h1 class="animate__animated animate__fadeInDown">Welcome to the Exam Dashboard</h1>
+            <a href="#dashboard" class="btn btn-primary animate__animated animate__fadeInUp">Explore</a>
+        </div>
+    </div>
+
+    <div class="container" id="dashboard" style="padding-top: 20px;">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="widget widget-bg-primary text-center animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="100">
+                    <div class="widget-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="widget-title">Total Students</div>
+                    <div class="widget-content" id="total-students">500</div>
+                   
+                    <img src="C:\Users\idate\Downloads\abstract-background-with-opened-book\book.png" alt="" class="stack-books">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-bg-success text-center animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="200">
+                    <div class="widget-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="widget-title">Students Passed</div>
+                    <div class="widget-content" id="students-passed">450</div>
+                    <img src="https://example.com/book-icon.png" alt="Books" class="stack-books">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-bg-warning text-center animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="300">
+                    <div class="widget-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="widget-title">Students Failed</div>
+                    <div class="widget-content" id="students-failed">50</div>
+                    <img src="https://example.com/book-icon.png" alt="Books" class="stack-books">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget widget-bg-danger text-center animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="400">
+                    <div class="widget-icon">
+                        <i class="fas fa-user-times"></i>
+                    </div>
+                    <div class="widget-title">Absent Students</div>
+                    <div class="widget-content" id="absent-students">10</div>
+                    <img src="https://example.com/book-icon.png" alt="Books" class="stack-books">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="chart-container animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">Class Distribution</div>
+                    <canvas id="class-distribution-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="chart-container animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">Performance Overview</div>
+                    <canvas id="performance-pie-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="chart-container animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header">Subject-wise Average Marks</div>
+                    <canvas id="subject-average-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="table-container animate__animated animate__fadeInUp" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-header">Exam Results</div>
+                    <table id="exam-results-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Marks</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be populated by DataTables -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="flip-card animate__animated animate__fadeInUp" data-aos="flip-left" data-aos-delay="100">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon-circle icon-bg-primary">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="custom-card-title">Top Performer</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="custom-card-title">John Doe</div>
+                            <div class="custom-card-text">98%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="flip-card animate__animated animate__fadeInUp" data-aos="flip-left" data-aos-delay="200">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon-circle icon-bg-success">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="custom-card-title">Most Improved</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="custom-card-title">Jane Smith</div>
+                            <div class="custom-card-text">+20%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="flip-card animate__animated animate__fadeInUp" data-aos="flip-left" data-aos-delay="300">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon-circle icon-bg-warning">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="custom-card-title">Consistent Performer</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="custom-card-title">Sam Wilson</div>
+                            <div class="custom-card-text">85%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="flip-card animate__animated animate__fadeInUp" data-aos="flip-left" data-aos-delay="400">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon-circle icon-bg-danger">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="custom-card-title">Teacher's Choice</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="custom-card-title">Alex Brown</div>
+                            <div class="custom-card-text">90%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        AOS.init();
+
+        $(document).ready(function () {
+            // Fetching the data and populating the table
+            $('#exam-results-table').DataTable({
+                ajax: 'path/to/your/api/for/exam/results',
+                columns: [
+                    { data: 'studentName' },
+                    { data: 'class' },
+                    { data: 'subject' },
+                    { data: 'marks' },
+                    {
+                        data: 'status',
+                        render: function (data, type, row) {
+                            if (data === 'Passed') {
+                                return '<span class="badge bg-success">' + data + '</span>';
+                            } else {
+                                return '<span class="badge bg-danger">' + data + '</span>';
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Class Distribution Chart
+        const classDistributionCtx = document.getElementById('class-distribution-chart').getContext('2d');
+        const classDistributionChart = new Chart(classDistributionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5'],
+                datasets: [{
+                    label: '# of Students',
+                    data: [30, 25, 35, 40, 20],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Performance Pie Chart
+        const performancePieCtx = document.getElementById('performance-pie-chart').getContext('2d');
+        const performancePieChart = new Chart(performancePieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Excellent', 'Good', 'Average', 'Below Average'],
+                datasets: [{
+                    label: '# of Students',
+                    data: [10, 20, 30, 10],
+                    backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                    borderColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Subject Average Chart
+        const subjectAverageCtx = document.getElementById('subject-average-chart').getContext('2d');
+        const subjectAverageChart = new Chart(subjectAverageCtx, {
+            type: 'line',
+            data: {
+                labels: ['Math', 'Science', 'English', 'History', 'Geography'],
+                datasets: [{
+                    label: 'Average Marks',
+                    data: [85, 90, 80, 70, 75],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

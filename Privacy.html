@@ -1,0 +1,626 @@
+﻿<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  rel="stylesheet"
+/>
+<style>
+  body {
+    background-color: #ffffff;
+    color: black;
+  }
+
+  .dashboard-card,
+  .info-card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+    border-radius: 10px;
+  }
+
+  .dashboard-card:hover,
+  .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .dashboard-card:active,
+  .info-card:active {
+    transform: translateY(5px);
+    color: #b0c4de;
+  }
+
+  .card-header {
+    background-color: mintcream;
+    font-weight: bold;
+  }
+
+  .shadow-custom {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 10px;
+  }
+
+  .icon-bg-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .icon-bg-success {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .icon-bg-warning {
+    background-color: #ffc107;
+    color: white;
+  }
+
+  .icon-bg-info {
+    background-color: #17a2b8;
+    color: white;
+  }
+
+  .small-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card1,
+  .card2,
+  .card3,
+  .card4 {
+    border-radius: 30px;
+    background: #ffffff;
+    /* box-shadow: 27px 27px 45px #17a2b8, -27px -27px 45px #17a2b8; */
+    box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
+  }
+  .custom-icon-size {
+    font-size: 30px; /* Adjust as needed */
+  }
+
+  .row {
+    border: #28a745;
+    border-radius: 20px;
+
+    box-shadow: 27px 27px 45px #ffffff, -27px -27px 45px #ffffff;
+  }
+
+  .flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .flip-card-front {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flip-card-back {
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 20px 20px 60px #0056b3, -20px -20px 60px #007bff;
+  }
+</style>
+
+<div class="container" style="padding-left: 300px; padding-top: 60px">
+  <div
+    class="row mb-4 shadow-custom"
+    style="
+      border-color: 2px #17a2b8;
+      padding-top: 20px;
+      padding-left: 10px;
+      padding-bottom: 20px;
+      padding-right: 20px;
+    "
+  >
+    <div class="row">
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="flip-card" data-aos="flip-left" data-aos-delay="100">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="icon-circle icon-bg-primary">
+                  <i class="fas fa-trophy"></i>
+                   <!-- <img src="Downloads\award.png"> -->
+                   <!-- <img src="C:\Users\idate\Downloads\award.png" width="200%" height="200%"> -->
+                </div>
+                <div class="custom-card-title">Top Performer</div>
+              </div>
+              <div class="flip-card-back">
+                <div class="custom-card-title">John Doe</div>
+                <div class="custom-card-text">98%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="flip-card" data-aos="flip-left" data-aos-delay="200">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="icon-circle icon-bg-success">
+                  <i class="fas fa-medal"></i>
+                </div>
+                <div class="custom-card-title">Most Improved</div>
+              </div>
+              <div class="flip-card-back">
+                <div class="custom-card-title">Jane Smith</div>
+                <div class="custom-card-text">+20%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="flip-card" data-aos="flip-left" data-aos-delay="300">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="icon-circle icon-bg-warning">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="custom-card-title">Consistent Performer</div>
+              </div>
+              <div class="flip-card-back">
+                <div class="custom-card-title">Sam Wilson</div>
+                <div class="custom-card-text">85%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="flip-card" data-aos="flip-left" data-aos-delay="400">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div
+                  class="icon-circle icon-bg-danger"
+                  style="background-color: #bf134c"
+                >
+                  <i class="fas fa-heart" style="color: white"></i>
+                </div>
+                <div class="custom-card-title">Teacher's Choice</div>
+              </div>
+              <div class="flip-card-back">
+                <div class="custom-card-title">Alex Brown</div>
+                <div class="custom-card-text">90%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-3">
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="400">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon-circle icon-bg-danger">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="custom-card-title">Teacher's Choice</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="custom-card-title">Alex Brown</div>
+                            <div class="custom-card-text">90%</div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+      </div>
+    </div>
+
+    <div class="col-md-6" style="padding-top: 80px">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card1 dashboard-card text-center shadow-lg">
+            <div class="card-body">
+              <div
+                class="icon-circle icon-bg-primary custom-icon-size small-icon"
+              >
+               <!-- <img src="C:\Users\idate\Downloads\3d-rendering-graduate-character\10599297.jpg" width="100%" height="100%"> -->
+                <i class="fas fa-user-graduate custom-icon-size small-icon"></i>
+              </div>
+              <h5 class="card-title fw-bold">Total Students Attending</h5>
+              <p class="card-text" id="total-attending">500</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card2 dashboard-card text-center shadow-lg">
+            <div class="card-body">
+              <div
+                class="icon-circle icon-bg-success custom-icon-size small-icon"
+              >
+                <i class="fas fa-check custom-icon-size small-icon"></i>
+              </div>
+              <h5 class="card-title fw-bold">Total Students Passed</h5>
+              <p class="card-text" id="total-passed">450</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6" style="max-height: 200px">
+          <div class="card3 info-card h-100 shadow-lg">
+            <div class="card-body">
+              <div
+                class="icon-circle icon-bg-warning custom-icon-size small-icon"
+              >
+                <i class="fas fa-calendar-alt custom-icon-size small-icon"></i>
+              </div>
+
+              <h5 class="card-title fw-bold text-center">
+                Upcoming Exam Routine
+              </h5>
+              <div class="ps-3">
+                <ul>
+                  <li>
+                    Class 10 exam starts from June 10.
+                    <a href="#">Routine PDF</a>
+                  </li>
+                </ul>
+                <a
+                  class="btn btn-warning btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#upcomingExamModal"
+                  style="float: right"
+                >
+                  <span style="color: white"> View All </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" style="max-height: 200px">
+          <div class="card4 info-card h-100 shadow-lg">
+            <div class="card-body">
+              <div
+                class="icon-circle icon-bg-primary custom-icon-size small-icon"
+              >
+                <i class="fas fa-file-text custom-icon-size small-icon"></i>
+              </div>
+              <h5 class="card-title fw-bold text-center">
+                Recent Exam Results
+              </h5>
+              <div class="ps-3">
+                <ul>
+                  <li>
+                    Class 10 exam starts from June 10.
+                    <a href="#">Routine PDF</a>
+                  </li>
+                </ul>
+                <div class="text-center">
+                  <a
+                    data-bs-toggle="modal"
+                    data-bs-target="#recentExamModal"
+                    style="text-decoration: underline; color: blue"
+                  >
+                    View All
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" style="padding-top: 80px">
+      <div class="card shadow-lg">
+        <div class="card-header">Student Distribution by Class</div>
+        <div class="card-body">
+          <canvas id="class-distribution-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div
+    class="row shadow-custom"
+    style="
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+    "
+  >
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header">Student Distribution by Performance</div>
+        <div class="card-body">
+          <canvas id="school-performance-piechart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header">Subject Marks</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="select-class" class="form-label">Select Class</label>
+            <select class="form-select" id="select-class">
+              <option value="class1">Class 1</option>
+              <option value="class2">Class 2</option>
+              <option value="class3">Class 3</option>
+              <!-- Add more classes as needed -->
+            </select>
+          </div>
+          <canvas id="subject-marks-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Upcoming Exam-->
+<div
+  class="modal fade"
+  id="upcomingExamModal"
+  tabindex="-1"
+  aria-labelledby="upcomingExamModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-white">
+        Upcoming Exam Routine
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Class 10 exam starts from June 10.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-warning">Routine PDF</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Class 9 exam starts from July 5.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-warning">Routine PDF</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Class 8 exam starts from August 15.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-warning">Routine PDF</a>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Recent Exam-->
+<div
+  class="modal fade"
+  id="recentExamModal"
+  tabindex="-1"
+  aria-labelledby="recentExamModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h1 class="modal-title fs-5" id="recentExamModalLabel">
+          Recent Exam Results
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Class 10 exam results are out.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-success">Results PDF</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Class 9 exam results are out.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-success">Results PDF</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Class 8 exam results are out.</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-success">Results PDF</a>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Chart for Student Distribution by Class
+  const ctxClassDistribution = document
+    .getElementById("class-distribution-chart")
+    .getContext("2d");
+  const classDistributionChart = new Chart(ctxClassDistribution, {
+    type: "bar",
+    data: {
+      labels: ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5"],
+      datasets: [
+        {
+          label: "Total Students",
+          data: [100, 150, 120, 130, 110],
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 1,
+        },
+        {
+          label: "Passed Students",
+          data: [90, 140, 110, 120, 105],
+          backgroundColor: "rgba(153, 102, 255, 0.2)",
+          borderColor: "rgba(153, 102, 255, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Line Chart for Subject Marks
+  const ctxSubjectMarks = document
+    .getElementById("subject-marks-chart")
+    .getContext("2d");
+  const subjectMarksChart = new Chart(ctxSubjectMarks, {
+    type: "line",
+    data: {
+      labels: ["English", "Math", "Science", "History", "Geography"],
+      datasets: [
+        {
+          label: "Marks",
+          data: [75, 80, 70, 85, 90],
+          borderColor: "rgba(54, 162, 235, 1)",
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Update Subject Marks Chart based on selected class
+  document
+    .getElementById("select-class")
+    .addEventListener("change", function () {
+      const selectedClass = this.value;
+      // Fetch and update the data for the selected class
+      // For demo, using static data
+      const newData = {
+        class1: [75, 80, 70, 85, 90],
+        class2: [95, 20, 37, 80, 60],
+        class3: [85, 90, 80, 95, 100],
+      };
+      subjectMarksChart.data.datasets[0].data = newData[selectedClass];
+      subjectMarksChart.update();
+    });
+
+  // Pie Chart for School Performance
+  const ctxSchoolPerformance = document
+    .getElementById("school-performance-piechart")
+    .getContext("2d");
+  const schoolPerformanceChart = new Chart(ctxSchoolPerformance, {
+    type: "pie",
+    data: {
+      labels: ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5"],
+      datasets: [
+        {
+          data: [20, 30, 25, 15, 10], // Example data
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+            },
+          },
+        },
+      },
+    },
+  });
+</script>
